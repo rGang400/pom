@@ -23,3 +23,389 @@ sibling(X, Y) :-
 ?- sibling(mary, david).
 % Output:
 % true.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% CUT
+first_aid(cut, "Apply firm pressure with a clean cloth, elevate the area, and seek medical attention if the bleeding doesn’t stop after 10 minutes").
+first_aid(abrasion, "Clean the area with water, apply antiseptic, and cover with a sterile bandage").
+first_aid(laceration, "Rinse the wound thoroughly, apply a sterile dressing, and seek medical attention if deep or bleeding heavily").
+first_aid(incision, "Apply pressure to stop bleeding, clean the wound, and cover with a sterile dressing. Seek medical attention if deep or long").
+first_aid(avulsion, "Rinse the wound, cover it with a clean cloth, and seek emergency medical help immediately").
+first_aid(arterial_bleed, "Apply firm pressure directly to the wound, keep the area elevated, and call emergency services immediately").
+
+% BURNS
+first_aid(first_degree_burn, "Cool the burn with water for 10 minutes, apply soothing lotion (like aloe), and cover with a clean, dry cloth.").
+first_aid(second_degree_burn, "Do not pop blisters. Cool the burn with water, apply a sterile dressing, and seek medical attention if large or infected.").
+first_aid(third_degree_burn, "Do not cool with water. Cover with a sterile non-stick bandage, and seek emergency medical help immediately.").
+first_aid(chemical_burn, "Rinse the area for at least 20 minutes, and seek medical attention immediately.").
+first_aid(electric_burn, "Seek emergency medical help immediately, even if there are no visible external injuries.").
+
+% ALLERGIES
+first_aid(food_allergy, "Remove the allergen immediately, take an antihistamine, and monitor for symptoms. Seek medical attention for severe reactions.").
+first_aid(insect_sting, "Remove the stinger if present, clean the area, and apply a cold pack to reduce swelling. Seek medical help for severe allergic reactions.").
+first_aid(drug_allergy, "Stop taking the medication, take an antihistamine, and seek medical attention for severe reactions.").
+first_aid(seasonal_allergy, "Avoid allergens when possible, take an antihistamine, and monitor for symptoms. Seek medical attention if symptoms are severe.").
+first_aid(mold_allergy, "Avoid exposure to mold, clean the affected area, use air purifiers, and take antihistamines for symptoms. Seek medical attention if severe reactions occur.").
+
+% fainting
+first_aid(dehydration, "Rehydrate the person with water or electrolyte solutions. If they are unable to drink, seek medical help immediately.").
+first_aid(hypoglycemia, "If the person is conscious, give them a sugary drink or snack. If they are unconscious, seek medical help immediately.").
+first_aid(panic_attack, "Help the person calm down. Encourage deep, slow breaths. If symptoms persist, seek medical attention.").
+first_aid(orthostatic_hypotension, "Have the person lie down until they feel better. Gradually help them to stand up slowly when they are ready. Seek medical attention if fainting recurs.").
+first_aid(vasovagal_syncope, "Encourage the person to lie down and elevate their legs. If fainting recurs, seek medical attention.").
+
+% heart attack
+% First Aid facts for heart attack and related symptoms
+first_aid(heart_attack, "Call emergency services immediately. If the person is conscious, keep them calm and seated. Give them aspirin if available. If unconscious, start CPR until help arrives.").
+first_aid(angina, "Encourage the person to rest and take any prescribed medication like nitroglycerin. If symptoms persist for more than 15 minutes, treat it as a heart attack and call emergency services.").
+first_aid(heart_failure, "Keep the person sitting up with their legs dangling to reduce pressure on the heart. Call emergency services immediately. Monitor their breathing and pulse.").
+
+% choking
+first_aid(partial_obstruction, "Encourage coughing to clear the airway. Do not perform back blows or abdominal thrusts unless the airway becomes fully blocked.").
+first_aid(complete_obstruction_adult, "Perform abdominal thrusts (Heimlich maneuver) until the object is dislodged or emergency services arrive.").
+first_aid(complete_obstruction_child_infant, "Perform 5 back blows followed by 5 chest thrusts until the object is dislodged or emergency services arrive.").
+first_aid(unconscious_choking_adult, "Begin CPR immediately. Check the airway for obstruction between compressions and breaths. Call emergency services.").
+first_aid(unconscious_choking_child_infant, "Begin CPR with chest compressions and rescue breaths. Call emergency services immediately.").
+first_aid(cyanosis, "If the person is turning blue (cyanosis), administer abdominal thrusts for adults or back blows/chest thrusts for children. Seek emergency help.").
+first_aid(object_dislodged, "The airway is clear. Monitor the person for breathing and discomfort. Seek medical advice if necessary.").
+first_aid(object_not_dislodged, "Continue performing abdominal thrusts or back blows and chest thrusts until the object is dislodged or emergency help arrives.").
+
+% Follow-up questions for cut types (abrasion, laceration, incision, avulsion, arterial bleed)
+ask_followup(cut) :-
+    write('Is the bleeding continuous despite applying pressure? (yes/no)'), nl,
+    read(ContinuousBleeding),
+    (ContinuousBleeding == yes -> 
+        write('Recommended First Aid: Apply firm pressure with a clean cloth, elevate the area, and seek medical attention immediately.'), nl;
+        true),
+    
+    write('Is the wound contaminated by dirt or rust? (yes/no)'), nl,
+    read(Contaminated),
+    (Contaminated == yes ->
+        write('Recommended First Aid: Clean the wound thoroughly, apply antiseptic, and seek medical attention for a tetanus shot.'), nl;
+        true),
+
+    write('Is the wound superficial (e.g., a scrape or abrasion)? (yes/no)'), nl,
+    read(Abrasion),
+    (Abrasion == yes ->
+        write('Recommended First Aid: Clean the area with water, apply antiseptic, and cover with a sterile bandage.'), nl;
+        
+        write('Is the wound deep, jagged, or larger than 1 cm? (yes/no)'), nl,
+        read(DeepLaceration),
+        (DeepLaceration == yes ->
+            write('Recommended First Aid: Rinse the wound, apply a sterile dressing, and seek medical attention for a laceration.'), nl;
+            
+            write('Is the wound a clean, straight cut (incision)? (yes/no)'), nl,
+            read(Incision),
+            (Incision == yes ->
+                write('Recommended First Aid: Apply pressure to stop the bleeding, clean the wound, and cover with a sterile dressing. Seek medical attention if deep or long.'), nl;
+                
+                write('Is there a large amount of tissue missing (avulsion)? (yes/no)'), nl,
+                read(Avulsion),
+                (Avulsion == yes ->
+                    write('Recommended First Aid: Rinse the wound, cover it with a clean cloth, and seek emergency medical help immediately.'), nl;
+                    
+                    write('Is the bleeding coming from an artery (spurting blood)? (yes/no)'), nl,
+                    read(ArterialBleed),
+                    (ArterialBleed == yes ->
+                        write('Recommended First Aid: Apply firm pressure directly to the wound, elevate the area, and call emergency services immediately.'), nl;
+                        write('Recommended First Aid: Clean the wound, apply a sterile bandage, and monitor for signs of infection.'), nl
+                    )
+                )
+            )
+        )
+    ),
+    
+    write('Is the wound red, swollen, or hot to the touch? (yes/no)'), nl,
+    read(Infection),
+    (Infection == yes ->
+        write('Recommended First Aid: This may be a sign of infection. Clean the wound again, apply antiseptic, and seek medical attention.'), nl;
+        true),
+
+    write('Has the wound been healing properly after 2 days? (yes/no)'), nl,
+    read(Healing),
+    (Healing == no ->
+        write('Recommended First Aid: Consult a healthcare professional if the wound isn’t healing properly.'), nl;
+        true).
+
+ask_followup(burn) :-
+    % chemical, electrical, or heat burn ?
+    write('Was the burn caused by chemicals or electricity? (yes/no)'), nl,
+    read(Cause),
+    (Cause == yes ->
+        % chemical or electrical
+        write('Was it a chemical burn? (yes/no)'), nl,
+        read(ChemBurn),
+        (ChemBurn == yes ->
+            write('Recommended First Aid: Rinse the area with cool running water for at least 20 minutes. Remove contaminated clothing carefully. Seek medical attention.'), nl;
+            write('Recommended First Aid: For electrical burns, make sure the source is off. Check for unconsciousness or muscle spasms, and seek medical attention immediately.'), nl);
+        
+        % assume it's a heat burn and proceed with degree of burn
+        write('Is the skin white, charred, or blackened? (yes/no)'), nl,
+        read(WhiteOrCharred),
+        (WhiteOrCharred == yes ->
+            % Third-degree burn
+            write('Recommended First Aid: This appears to be a third-degree burn. Do NOT cool with water. Cover with a sterile non-stick bandage and seek emergency medical help immediately.'), nl;
+            
+            % Check for second-degree burn
+            write('Is the burn blistering or swollen? (yes/no)'), nl,
+            read(Blistering),
+            (Blistering == yes ->
+                write('Recommended First Aid: This is likely a second-degree burn. Do NOT pop any blisters. Cool the burn with water for 10 minutes and cover with a sterile dressing. Seek medical attention.'), nl;
+                
+                % Check for first-degree burn
+                write('Is the burn red, dry, and painful without blisters? (yes/no)'), nl,
+                read(RedPainful),
+                (RedPainful == yes ->
+                    write('Recommended First Aid: This is a first-degree burn. Cool the burn with running water for 10 minutes, apply soothing lotion (like aloe), and cover with a clean cloth.'), nl;
+                    
+                    % Ask about burn size to determine further action
+                    write('Is the burn larger than the size of your palm? (yes/no)'), nl,
+                    read(LargeBurn),
+                    (LargeBurn == yes ->
+                        write('Recommended First Aid: Large burns require cooling under running water for 10 minutes. Cover with a sterile non-stick bandage and seek medical attention.'), nl;
+                        write('Recommended First Aid: For small burns, cool with water for 10 minutes, apply soothing lotion, and monitor for any changes.'), nl
+                    )
+                )
+            )
+        )
+    ).
+
+ask_followup(allergy) :- 
+    write('Do you have a runny nose or sneezing? (yes/no)'), nl,
+    read(RunningNose),
+    (RunningNose == yes ->
+        SeasonalAdvice = seasonal_allergy,
+        write('This may indicate a seasonal allergy. Monitor your symptoms and take antihistamines if needed.'), nl
+    ; SeasonalAdvice = none),
+
+    write('Is there any redness on your skin? Pain? Itching? (yes/no)'), nl,
+    read(SkinSymptoms),
+    (SkinSymptoms == yes ->
+        InsectAdvice = insect_sting,
+        write('Redness, pain, or itching can indicate an insect allergy or a reaction. Monitor your symptoms closely.'), nl
+    ; InsectAdvice = none),
+
+    write('Are you feeling any throat pain, vomiting, or abdominal pain? (yes/no)'), nl,
+    read(ThroatSymptoms),
+    (ThroatSymptoms == yes ->
+        SevereReaction1 = yes
+    ; SevereReaction1 = no),
+
+    write('Are your lips or tongue swollen? Do you have rashes? (yes/no)'), nl,
+    read(SwellingSymptoms),
+    (SwellingSymptoms == yes ->
+        SevereReaction2 = yes
+    ; SevereReaction2 = no),
+
+    % Provide specific first aid recommendations based on the detected condition
+    (SeasonalAdvice \= none ->
+        first_aid(seasonal_allergy, Treatment),
+        write('Stay indoors on high pollen days, particularly during peak pollen hours (usually early morning and late afternoon).'), nl,
+        write('Recommended First Aid for seasonal allergy: '), write(Treatment), nl;
+        true),
+    (InsectAdvice \= none ->
+        first_aid(insect_sting, Treatment),
+        write('Recommended First Aid for insect sting: '), write(Treatment), nl;
+        true),
+
+    % Individual severe reactions
+    (SevereReaction1 == yes ->
+        first_aid(drug_allergy, DrugAdvice),
+        write('Recommended First Aid for drug allergy: '), write(DrugAdvice), nl
+    ; 
+        true),
+    (SevereReaction2 == yes ->
+        first_aid(food_allergy, FoodAdvice),
+        write('Recommended First Aid for food allergy: '), write(FoodAdvice), nl
+    ; 
+        true),
+
+    % Add mold allergy check
+    write('Do you have a persistent cough, wheezing, or difficulty breathing? (yes/no)'), nl,
+    read(MoldSymptoms),
+    (MoldSymptoms == yes ->
+        write('This may indicate a mold allergy. Avoid exposure and seek medical advice.'), nl,
+        first_aid(mold_allergy, MoldAdvice),
+        write('Recommended First Aid for mold allergy: '), write(MoldAdvice), nl
+    ; 
+    true).
+
+% Follow-up questions for fainting
+ask_followup(fainting) :-
+    write('Is the person sweating excessively or feeling very hot? (yes/no)'), nl,
+    read(HeatSymptoms),
+    (HeatSymptoms == yes ->
+        write('This may indicate dehydration or heat-related issues.'), nl,
+        write('Have they been exposed to high temperatures or intense physical activity? (yes/no)'), nl,
+        read(HighTempActivity),
+        (HighTempActivity == yes ->
+        	write('Person has a heatstroke.'), nl,
+            write('Recommended First Aid: Move the person to a cooler area, remove excess clothing, and apply cool, wet cloths. Encourage them to drink fluids. If symptoms persist, seek medical help.'), nl
+        ;
+            write('Recommended First Aid: Ensure they are hydrated and resting. Monitor their condition closely.'), nl
+        )
+    ;
+    % If not hot
+    write('Did the person eat recently? (yes/no)'), nl,
+    read(RecentMeal),
+    (RecentMeal == no ->
+        write('Recommended First Aid: This may indicate hypoglycemia. If they are conscious, give them a sugary drink or snack immediately.'), nl
+    ;
+        % If they ate recently
+        write('Has the person been feeling weak or dizzy before fainting? (yes/no)'), nl,
+        read(WeakDizzy),
+        (WeakDizzy == yes ->
+            write('Recommended First Aid: This may indicate fatigue or low blood pressure. Have them lie down and rest. Monitor their symptoms closely.'), nl
+        ;
+            write('Has the person been under a lot of stress or had insufficient sleep? (yes/no)'), nl,
+            read(StressSleep),
+            (StressSleep == yes ->
+            	write('Fainting might be stress induced.'), nl,
+                write('Recommended First Aid: Encourage relaxation and rest. Monitor their condition.'), nl
+            ;
+                write('Has the person been taking any medications recently? (yes/no)'), nl,
+                read(TakingMedications),
+                (TakingMedications == yes ->
+                    write('Recommended First Aid: Some medications can cause fainting. Check with a healthcare professional if needed.'), nl
+                ;
+                    write('Did the person suddenly stand up or change position? (yes/no)'), nl,
+                    read(QuickStand),
+                    (QuickStand == yes ->
+                        write('Recommended First Aid: This may indicate orthostatic hypotension. Have the person lie down and rest. Encourage them to change positions slowly in the future.'), nl
+                    ;
+                        write('Did the person experience any blunt trauma prior to fainting? (yes/no)'), nl,
+                        read(TraumaSymptoms),
+                        (TraumaSymptoms == yes ->
+                            write('Recommended First Aid: Assess for injuries. If they were injured, seek medical attention immediately.'), nl
+                        ;
+                            write('Monitor their condition closely and seek medical help if necessary.'), nl
+                        )
+                    )
+                )
+            )
+        )
+    )).
+
+% Follow-up questions for heart attack
+ask_followup(heart_attack) :-
+    write('Is the pain severe and lasting more than 15 minutes? (yes/no)'), nl,
+    read(SeverePain),
+    (SeverePain == yes ->
+        write('Does the pain radiate to the arms, neck, jaw, or back? (yes/no)'), nl,
+        read(RadiatingPain),
+        (RadiatingPain == yes ->
+            write('Recommended First Aid: This appears to be a heart attack. Call emergency services immediately. If the person is conscious, keep them calm, seated, and give them aspirin if available.'), nl;
+            write('Recommended First Aid: This may still be a heart attack. Call emergency services and monitor the situation closely.'), nl),
+            
+        write('Is the person short of breath or experiencing difficulty breathing? (yes/no)'), nl,
+        read(ShortBreath),
+        (ShortBreath == yes ->
+            write('Recommended First Aid: The person may be experiencing heart failure. Keep them sitting up with their legs dangling and call emergency services immediately.'), nl;
+            true)
+    ;
+    write('Is the pain relieved by rest or medication? (yes/no)'), nl,
+    read(Relief),
+    (Relief == yes ->
+        write('Recommended First Aid: This might be angina. Encourage the person to rest and take any prescribed medication. If symptoms persist for more than 15 minutes, treat it as a heart attack and call emergency services.'), nl;
+        write('Recommended First Aid: Call emergency services immediately and monitor the person for worsening symptoms.'), nl)),
+
+    write('Is the person feeling nauseous, sweating excessively, or light-headed? (yes/no)'), nl,
+    read(OtherSymptoms),
+    (OtherSymptoms == yes ->
+        write('These may be additional signs of a heart attack. Call for emergency help and administer first aid accordingly.'), nl;
+        true).
+
+% Follow-up questions for Choking
+ask_followup(choking) :-
+    % Initial question about coughing or noise (Partial Airway Obstruction)
+    write('Can the person cough or make any sound? (yes/no)'), nl,
+    read(CoughOrNoise),
+    (CoughOrNoise == yes ->
+        % Partial Obstruction - Encourage coughing
+        write('Recommended First Aid: The person has a partial airway obstruction. Encourage them to keep coughing to clear the obstruction. Do not perform back blows or abdominal thrusts.'), nl;
+        
+        % If no cough or noise, check for Complete Airway Obstruction
+        write('Is the person unable to cough, speak, or breathe? (yes/no)'), nl,
+        read(CompleteObstruction),
+        (CompleteObstruction == yes ->
+            % Check if it's an adult or child/infant for specific instructions
+            write('Is the person an adult or a child/infant? (adult/child)'), nl,
+            read(AgeGroup),
+            (AgeGroup == adult ->
+                write('Recommended First Aid: Perform abdominal thrusts (Heimlich maneuver) until the object is dislodged.'), nl,
+                write('Youtube Reference video: https://www.youtube.com/watch?v=SqpcTF2HFvg'),nl,
+                % Additional follow-up for abdominal thrust effectiveness
+                write('Has the object been dislodged? (yes/no)'), nl,
+                read(Dislodged),
+                (Dislodged == yes ->
+                    write('The object has been cleared. Monitor the person for further symptoms or discomfort.'), nl;
+                    write('Continue abdominal thrusts until emergency services arrive or the object is dislodged.'), nl
+                );
+                
+                % First Aid for child or infant
+                write('Recommended First Aid: For children or infants, perform 5 back blows followed by 5 chest thrusts.'), nl,
+                write('Has the object been dislodged? (yes/no)'), nl,
+                read(DislodgedChild),
+                (DislodgedChild == yes ->
+                    write('The object has been cleared. Monitor the child/infant for further symptoms or discomfort.'), nl;
+                    write('Continue the cycle of back blows and chest thrusts until emergency services arrive or the object is dislodged.'), nl
+                )
+            );
+            write('The person may have a partial obstruction. Encourage coughing and monitor their condition.'), nl
+        )
+    ),
+
+    % Question about cyanosis (turning blue)
+    write('Is the person turning blue (cyanosis)? (yes/no)'), nl,
+    read(Cyanosis),
+    (Cyanosis == yes ->
+        write('Recommended First Aid: Administer abdominal thrusts (for adults) or back blows/chest thrusts (for children). Call emergency services immediately.'), nl;
+        write('Continue to monitor their condition. If they are coughing or breathing, allow them to try clearing the airway on their own.'), nl
+    ),
+    
+    % Question about consciousness
+    write('Is the person still conscious? (yes/no)'), nl,
+    read(Conscious),
+    (Conscious == yes ->
+        % If conscious, check for further symptoms
+        write('Monitor the person closely for any other signs of distress.'), nl;
+        
+        % If unconscious, begin CPR
+        write('Has the person become unconscious? (yes/no)'), nl,
+        read(Unconscious),
+        (Unconscious == yes ->
+            write('Recommended First Aid: Call emergency services immediately. Begin CPR, and check for the obstruction between chest compressions and breaths.'), nl;
+            write('Continue performing abdominal thrusts or back blows and monitor the person\'s condition.'), nl
+        )
+    ).
+
+
+% Diagnostic system to ask about the condition and provide first aid
+diagnose :-
+    write('What condition are you experiencing? (cut/ burn/ allergy/ fainting/ heart_attack/ choking)'), nl,
+    read(Condition),
+    ( ask_followup(Condition) ->
+        true;
+        write('Sorry, no first aid recommendations are available for this condition.'), nl
+    ).
+
+% Start the diagnostic process
+start :-
+    write('Welcome to the First Aid Recommendation System!'), nl,
+    write('Answer the following questions to get first aid advice.'), nl,
+    diagnose.
+
+start.
