@@ -161,3 +161,161 @@ public class Main {
 // Enter start node: A
 // Enter goal node: G
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+C++ code
+    
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <queue>
+#include <set>
+#include <string>
+#include <sstream>
+#include <limits>
+#include <algorithm>
+
+using namespace std;
+
+struct Node {
+    string name;
+    int g; // cost from start to current node
+    int h; // heuristic to goal
+    int f; // total cost f = g + h
+    Node* parent;
+
+    Node(string n, int g_cost, int h_cost, Node* p)
+        : name(n), g(g_cost), h(h_cost), f(g_cost + h_cost), parent(p) {}
+
+    // Comparator for priority queue
+    bool operator>(const Node& other) const {
+        return f > other.f;
+    }
+};
+
+// Global graph and heuristic maps
+unordered_map<string, unordered_map<string, int>> graph;
+unordered_map<string, int> heuristic;
+
+vector<string> reconstructPath(Node* goalNode) {
+    vector<string> path;
+    Node* current = goalNode;
+    while (current != nullptr) {
+        path.push_back(current->name);
+        current = current->parent;
+    }
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+vector<string> aStar(string start, string goal) {
+    auto cmp = [](Node* a, Node* b) { return *a > *b; };
+    priority_queue<Node*, vector<Node*>, decltype(cmp)> openList(cmp);
+    set<string> closedSet;
+
+    Node* startNode = new Node(start, 0, heuristic[start], nullptr);
+    openList.push(startNode);
+
+    while (!openList.empty()) {
+        Node* current = openList.top();
+        openList.pop();
+
+        if (current->name == goal) {
+            cout << "Total Cost: " << current->g << endl;
+            return reconstructPath(current);
+        }
+
+        closedSet.insert(current->name);
+
+        for (auto& neighborPair : graph[current->name]) {
+            string neighbor = neighborPair.first;
+            int cost = neighborPair.second;
+
+            if (closedSet.find(neighbor) != closedSet.end()) continue;
+
+            int gCost = current->g + cost;
+            Node* neighborNode = new Node(neighbor, gCost, heuristic[neighbor], current);
+            openList.push(neighborNode);
+        }
+    }
+
+    return {}; // No path found
+}
+
+int main() {
+    int n, e;
+    cout << "Enter number of nodes: ";
+    cin >> n;
+    cin.ignore();
+
+    cout << "Enter heuristic values (e.g. A 4):" << endl;
+    for (int i = 0; i < n; ++i) {
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
+        string node;
+        int h;
+        ss >> node >> h;
+        heuristic[node] = h;
+    }
+
+    cout << "Enter number of edges: ";
+    cin >> e;
+    cin.ignore();
+
+    cout << "Enter edges (e.g. A B 3):" << endl;
+    for (int i = 0; i < e; ++i) {
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
+        string from, to;
+        int cost;
+        ss >> from >> to >> cost;
+        graph[from][to] = cost;
+    }
+
+    string start, goal;
+    cout << "Enter start node: ";
+    cin >> start;
+    cout << "Enter goal node: ";
+    cin >> goal;
+
+    vector<string> path = aStar(start, goal);
+    if (!path.empty()) {
+        cout << "Path found: ";
+        for (size_t i = 0; i < path.size(); ++i) {
+            cout << path[i];
+            if (i < path.size() - 1) cout << " -> ";
+        }
+        cout << endl;
+    } else {
+        cout << "No path found." << endl;
+    }
+
+    return 0;
+}
