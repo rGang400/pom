@@ -83,3 +83,114 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//N queen using BFS
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <cmath>
+using namespace std;
+
+// Structure to hold the state of the board (partial solution)
+struct State {
+    vector<int> queens;  // queens[i] = column position of queen in row i
+};
+
+// Function to check if placing a queen at (row, col) is safe
+bool isValid(const vector<int>& queens, int row, int col) {
+    for (int i = 0; i < row; ++i) {
+        // Check same column or diagonal conflicts
+        if (queens[i] == col || abs(queens[i] - col) == abs(i - row)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to print the board with queens placed
+void printBoard(const vector<int>& queens) {
+    int N = queens.size();
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if (queens[i] == j) {
+                cout << "Q ";
+            } else {
+                cout << ". ";
+            }
+        }
+        cout << "\n";
+    }
+    cout << "\n";
+}
+
+// BFS-based solver for the N-Queens problem
+int solveNQueensBFS(int N, bool showSolutions = true) {
+    queue<State> q;          // Queue for BFS states
+    int count = 0;           // Count of valid solutions found
+
+    // Start with an empty board (no queens placed)
+    q.push({});
+
+    // BFS traversal over states
+    while (!q.empty()) {
+        State current = q.front();
+        q.pop();
+
+        int row = current.queens.size();  // Next row to place queen
+
+        // If all queens are placed successfully
+        if (row == N) {
+            if (showSolutions) {
+                cout << "Solution " << ++count << ":\n";
+                printBoard(current.queens);
+            } else {
+                ++count;
+            }
+            continue;
+        }
+
+        // Try placing queen in all columns for current row
+        for (int col = 0; col < N; ++col) {
+            if (isValid(current.queens, row, col)) {
+                State next = current;
+                next.queens.push_back(col);  // Place queen in this column
+                q.push(next);                // Add new state to queue
+            }
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    int N;
+    char choice;
+
+    // User input for board size
+    cout << "Enter value of N for N-Queens problem: ";
+    cin >> N;
+
+    // User decides whether to show all solutions or just the count
+    cout << "Do you want to display all solutions? (y/n): ";
+    cin >> choice;
+    bool show = (choice == 'y' || choice == 'Y');
+
+    // Solve and output results
+    int totalSolutions = solveNQueensBFS(N, show);
+    cout << "\nTotal solutions found: " << totalSolutions << endl;
+
+    return 0;
+}
