@@ -1,5 +1,21 @@
 // Eight Puzzle
 
+// The Eight Puzzle is a classic sliding tile puzzle consisting of a 3x3 grid. It contains:
+
+// Eight numbered tiles (1 through 8)
+
+// One blank tile (represented by 0)
+
+// The goal is to reach a final configuration (goal state) by sliding the tiles one at a time into the empty space (0), using only legal moves: Up, Down, Left, or Right.
+
+// 🎯 Problem Statement
+// Given:
+
+// An initial state of the puzzle
+
+// A goal state of the puzzle
+
+// Find the shortest path (sequence of moves) that transforms the initial state into the goal state using the A* (A-Star) Search Algorithm with Manhattan Distance Heuristic.
 
 
 
