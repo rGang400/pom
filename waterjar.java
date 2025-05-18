@@ -1,5 +1,13 @@
 // Water Jar using DFS
+// 💧 Water Jar Problem Statement
+// 🔍 Objective:
+// You are given two water jars:
 
+// One with a capacity of 4 gallons
+
+// Another with a capacity of 3 gallons
+
+// Your goal is to use these two jars to measure out an exact amount of water in the 4-gallon jar, which will be specified by the user (called the target volume).
 
 import java.util.*;
 
