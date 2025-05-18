@@ -1,4 +1,15 @@
 //Crypte Arthmentic
+//The problem involves solving a classic cryptarithmetic puzzle, where each letter in the given words must be assigned a unique digit (0–9) such that a mathematical equation formed by those words is numerically correct. The user inputs three words, typically structured as:
+
+// sql
+// Copy
+// Edit
+// WORD1 + WORD2 = RESULT
+// Each word represents a number formed by replacing letters with digits. No two letters can have the same digit, and the leading letter of any word cannot be zero. The program should use backtracking to explore all possible digit assignments and find a solution that satisfies the equation.
+
+// Example:
+// Input — SEND + MORE = MONEY
+// Output — A valid mapping such as S=9, E=5, N=6, D=7, M=1, O=0, R=8, Y=2
 
 import java.util.*;
 
