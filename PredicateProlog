@@ -408,4 +408,6 @@ start :-
     write('Answer the following questions to get first aid advice.'), nl,
     diagnose.
 
-start.
+
+
+// query--->start.
