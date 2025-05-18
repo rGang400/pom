@@ -1,4 +1,29 @@
 //1) Missonaries using BFS
+// 🧠 Problem Statement: Missionaries and Cannibals
+// You are given:
+
+// A group of missionaries and cannibals on one side of a river (the left bank).
+
+// A boat that can carry a limited number of people (defined by a given boat capacity).
+
+// 🛶 Objective:
+// Safely transport all the missionaries and cannibals from the left bank to the right bank using the boat, following certain rules.
+
+// ✅ Rules and Constraints:
+// Boat Capacity: The boat can carry at least 1 person and up to the specified maximum number of people.
+
+// Only Two Types: Only missionaries and cannibals are allowed in the boat.
+
+// One Side at a Time: The boat must always carry people from one bank to the other. It cannot cross empty.
+
+// Missionary Safety Rule:
+
+// On either bank, if cannibals outnumber missionaries, the missionaries will get eaten.
+
+// This is allowed only if there are no missionaries on that side.
+
+// 🎯 Goal:
+// Move all missionaries and cannibals to the right bank safely — without violating the safety rule — using the boat.
 
 
 #include <iostream>
