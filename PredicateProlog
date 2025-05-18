@@ -1,0 +1,25 @@
+% Facts
+parent(john, mary).
+parent(john, david).
+parent(susan, mary).
+parent(susan, david).
+
+% Rule
+sibling(X, Y) :- 
+    parent(P, X), 
+    parent(P, Y), 
+    X \= Y.
+
+
+
+
+//queries
+% Query 1: Is John a parent of Mary?
+?- parent(john, mary).
+% Output:
+% true.
+
+% Query 2: Are Mary and David siblings?
+?- sibling(mary, david).
+% Output:
+% true.
