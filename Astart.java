@@ -1,4 +1,38 @@
-import java.util.*;
+// 🧩 Problem Statement: A* Search Pathfinding Simulator
+// 💡 Objective:
+// Design and implement a Java program that uses the A* (A-Star) Search Algorithm to find the shortest path between two nodes in a user-defined graph, using heuristic values and cost-based edges.
+
+// 📋 Description:
+// In many real-world applications like GPS navigation, game AI, and robotics, finding the shortest or most optimal path between two points is crucial. This program simulates such a scenario by taking input from the user to build a graph and then applying the A* algorithm to find the shortest path from a start node to a goal node.
+
+// 📥 Inputs:
+// Total number of nodes in the graph.
+
+// Heuristic values for each node (an estimated cost from that node to the goal).
+
+// Number of edges and the cost for each directed edge (e.g., A to B with cost 3).
+
+// Start node.
+
+// Goal node.
+
+// 📤 Output:
+// The optimal path from start to goal using A* search.
+
+// The total cost of the path.
+
+// 🛠 Functional Requirements:
+// Accept graph and heuristic data from the user.
+
+// Use a priority queue to implement the A* search efficiently.
+
+// Avoid revisiting nodes already explored (closed set).
+
+// Trace the path from goal back to start using parent references.
+
+
+
+java.util.*;
 
 class Node implements Comparable<Node> {
     String name;
